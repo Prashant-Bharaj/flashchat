@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flashchat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final _firestore = FirebaseFirestore.instance;
 // FirebaseUser? loggedInUser;
 User? loggedInUser;
+
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
   @override
@@ -50,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
               }),
         ],
         title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        // backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
         child: Column(
@@ -73,19 +75,37 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      messageTextController.clear();
-                      _firestore.collection('messages').add({
-                        'text': messageText,
-                        'sender': loggedInUser!.email,
-                        'time': FieldValue.serverTimestamp(),
-                      });
-                    },
-                    child: Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
-                    ),
-                  ),
+                      onPressed: () {
+                        messageTextController.clear();
+                        _firestore.collection('messages').add({
+                          'text': messageText,
+                          'sender': loggedInUser!.email,
+                          'time': FieldValue.serverTimestamp(),
+                        });
+                      },
+                      child: Material(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.blue.shade900
+                            : Colors.lightBlue,
+                        elevation: 18.0,
+                        borderRadius: BorderRadius.circular(30),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 5, 3, 5),
+                          child: Icon(
+                            Icons.send_rounded,
+                            size: 40.0,
+                          ),
+                        ),
+                      )
+                      // Text(
+                      //   'Send',
+                      //   style: TextStyle(
+                      //     color: Theme.of(context).brightness == Brightness.dark ? Colors.blue.shade900 : Colors.lightBlue,
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 18.0,
+                      //   ),
+                      // ),
+                      ),
                 ],
               ),
             ),
@@ -100,7 +120,10 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').orderBy('time',descending: false).snapshots(),
+      stream: _firestore
+          .collection('messages')
+          .orderBy('time', descending: false)
+          .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -161,7 +184,7 @@ class MessageBubble extends StatelessWidget {
             sender,
             style: TextStyle(
               fontSize: 12.0,
-              color: Colors.black54,
+              // color: Colors.black54,
             ),
           ),
           Material(
@@ -176,7 +199,13 @@ class MessageBubble extends StatelessWidget {
                     topRight: Radius.circular(30.0),
                   ),
             elevation: 5.0,
-            color: isMe ? Colors.lightBlueAccent : Colors.white,
+            color: isMe
+                ? Theme.of(context).brightness == Brightness.dark
+                    ? Colors.blue.shade900
+                    : Colors.lightBlue
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white70
+                    : Colors.white,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(

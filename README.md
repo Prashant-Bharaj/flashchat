@@ -1,16 +1,27 @@
 # flashchat
 
-A new Flutter project.
+![language](https://img.shields.io/badge/language-dart-orange)
+![framework](https://img.shields.io/badge/framework-flutter-orange)
+![dependency](https://img.shields.io/badge/dependency-firebase-orange)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## What is the project?
+It is a realtime chatting application. All the messages are stored on the cloud so user can login from different devices and access their messages.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## How it works?
+* Use **Cloud-Firestore** for storing messages
+* Use timestamp to organize the messages
+* Use loggin credentials to display messages which are sent by the current user
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+-----
+## Screenshots 
+
+In Dark Mode<br>
+<img height=600 width=300 src="screenshots/1.jpg">&ensp;<img height=600 width=300 src="screenshots/2.jpg">&ensp;<img height=600 width=300 src="screenshots/3.jpg">
+<br><br>In Normal Mode<br>
+<img height=600 width=300 src="screenshots/11.jpg">&ensp;<img height=600 width=300 src="screenshots/22.jpg">&ensp;<img height=600 width=300 src="screenshots/33.jpg">
+-----
+
+
